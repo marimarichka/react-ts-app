@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Box from "@mui/material/Box";
+import React from "react";
+import "./App.css";
+import ToDoList from "./Content/ToDoList";
+import Header from "./Header/Header";
+import Navbar from "./Navbar/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Box>
+      <Header />
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <Navbar />
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            height: "calc(100vh - 80px)",
+            justifyContent: "center",
+            alignItems: "center",
+            flexGrow: 1,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <ToDoList />
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
