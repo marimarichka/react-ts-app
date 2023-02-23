@@ -1,8 +1,14 @@
 import { Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
+import { ITodoItem } from "./types";
 
-const ToDoItem = () => {
+interface ITodoItemProps extends ITodoItem {
+  deleteTodo: (id: number) => void
+}
+
+const ToDoItem = ({id, text, deleteTodo}: ITodoItemProps) => {
+
   return (
     <Box
       sx={{
@@ -18,9 +24,9 @@ const ToDoItem = () => {
         alignItems: "center",
       }}
     >
-      <Box sx={{ marginLeft: "22px", fontSize: "12px" }}>TODO TEXT</Box>
-      <IconButton aria-label="delete">
-        <DeleteIcon sx={{ fontSize: "18px", marginRight: '10px' }} />
+      <Box sx={{ marginLeft: "22px", fontSize: "12px" }}>{text}</Box>
+      <IconButton onClick={() => deleteTodo(id)} aria-label="delete" sx={{marginRight: '10px'}}>
+        <DeleteIcon sx={{ fontSize: "18px" }} />
       </IconButton>
     </Box>
   );
