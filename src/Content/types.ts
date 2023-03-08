@@ -1,1 +1,1 @@
-export type ITodoItem = {id: number, text: string};
+export type ITodoItem = { id: string, text: string};

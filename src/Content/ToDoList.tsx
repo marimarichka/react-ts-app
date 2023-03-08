@@ -1,30 +1,26 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Paper, Typography, TextField, Button } from "@mui/material";
+import { Paper, Typography, TextField, Button, CircularProgress } from "@mui/material";
 import ToDoItem from "./TodoItem";
+import { useAddTodoMutation, useGetTodosQuery } from "../redux/API/API";
 import { ITodoItem } from "./types";
 
 const ToDoList = () => {
-  const [todos, setTodos] = useState<ITodoItem[]>([]);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
+  const { data: todos, isLoading: isTodosLoading } = useGetTodosQuery();
+  const [addTodo, { isLoading: isAddTodoLoading }] = useAddTodoMutation();
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
 
-  const onClick = () => {
-    const newTodo = {id: new Date().getTime(), text: value};
-    setTodos([...todos, newTodo]);
-    setValue('');
+  const handleCreate = () => {
+    addTodo({ text: value } as ITodoItem);
+    setValue("");
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') onClick();
-  };
-
-  const deleteTodo = (id: number) => {
-    const removeTodo = todos.filter((todo) => id !== todo.id);
-    setTodos(removeTodo);
+    if (e.key === "Enter") handleCreate();
   };
 
   return (
@@ -37,19 +33,58 @@ const ToDoList = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        borderRadius: '6px'
+        borderRadius: "6px",
       }}
     >
       <Typography variant="h6" sx={{ marginY: "20px" }}>
         TODOs
       </Typography>
-      <Box sx={{ display: "flex", flexDirection: "row", width: '90%', }}>
-        <TextField onKeyDown={onKeyDown} value={value} onChange={onInputChange} id="outlined-basic" variant="outlined" sx={{width: '80%', marginRight: '10px'}} />
-        <Button onClick={onClick} variant="contained" disableElevation color="primary" sx={{height: '40px', width: '20%', marginLeft: '10px'}}>
+      <Box sx={{ display: "flex", flexDirection: "row", width: "90%" }}>
+        <TextField
+          onKeyDown={onKeyDown}
+          value={value}
+          onChange={onInputChange}
+          id="outlined-basic"
+          variant="outlined"
+          sx={{ width: "80%", marginRight: "10px" }}
+        />
+        <Button
+          disabled={isAddTodoLoading}
+          onClick={handleCreate}
+          variant="contained"
+          disableElevation
+          color="primary"
+          sx={{ height: "40px", width: "20%", marginLeft: "10px" }}
+        >
           Create
         </Button>
       </Box>
-      {todos.map(todo => <ToDoItem key={todo.id} {...todo} deleteTodo={deleteTodo} />)}
+      <Box
+        sx={{
+          overflow: "auto",
+          width: "100%",
+          padding: "10px 0",
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          marginY: "10px",
+          "&::-webkit-scrollbar": {
+            width: "3px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "#ECBEB4",
+            borderRadius: '1px'
+          },
+        }}
+      >
+        {isTodosLoading ? (
+          <Box sx={{ marginTop: "120px" }}>
+            <CircularProgress size={50} />
+          </Box>
+        ) : (
+          todos?.map((todo) => <ToDoItem key={todo.id} todo={todo} />)
+        )}
+      </Box>
     </Paper>
   );
 };
