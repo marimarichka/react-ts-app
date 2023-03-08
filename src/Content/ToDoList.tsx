@@ -20,7 +20,7 @@ const ToDoList = () => {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") handleCreate();
+    if (e.key === "Enter" && !isAddTodoLoading) handleCreate();
   };
 
   return (
@@ -73,7 +73,7 @@ const ToDoList = () => {
           },
           "&::-webkit-scrollbar-thumb": {
             background: "#ECBEB4",
-            borderRadius: '1px'
+            borderRadius: "1px",
           },
         }}
       >
