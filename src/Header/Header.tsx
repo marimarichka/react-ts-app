@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { COLOR_PINK } from "../config/constants";
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
       sx={{
         height: "80px",
         width: '100%',
-        backgroundColor: "#ECBEB4",
+        backgroundColor: COLOR_PINK,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

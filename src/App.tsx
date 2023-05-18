@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import ToDoList from "./Content/ToDoList";
+import ToDoList from "./routes/ToDoList/ToDoList";
 import Header from "./Header/Header";
 import Navbar from "./Navbar/Navbar";
+import Users from "./routes/Users/Users";
 
 function App() {
   return (
@@ -14,14 +16,17 @@ function App() {
         <Box
           sx={{
             display: "flex",
+            flexDirection: 'column',
             width: "100%",
             height: "calc(100vh - 80px)",
-            justifyContent: "center",
-            alignItems: "center",
+            overflow: 'auto',
             flexGrow: 1,
           }}
         >
-          <ToDoList />
+          <Routes>
+            <Route path="/" element={<ToDoList />} />
+            <Route path="users" element={<Users />} />
+          </Routes>
         </Box>
       </Box>
     </Box>

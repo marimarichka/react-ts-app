@@ -2,7 +2,7 @@ import { Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { FC } from "react";
 import { ITodoItem } from "./types";
-import { useDeleteTodoMutation } from "../redux/API/API";
+import { useDeleteTodoMutation } from "../../redux/API/API";
 
 interface TodoItemProps {
   todo: ITodoItem;
