@@ -1,15 +1,14 @@
-import * as React from "react";
+import React, { memo } from "react";
 import { Button, TextField, DialogContent, DialogActions, DialogTitle } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useAddUserMutation } from "../../redux/API/API";
 
-export default function AddUserForm({ handleClose }: { handleClose: () => void }) {
-  const {
-    register,
-    getValues,
-    formState: { errors },
-  } = useForm();
-  console.log(errors);
+interface AddUserFormProps {
+  handleClose: () => void;
+}
+
+const AddUserForm = memo(function AddUserForm({ handleClose }: AddUserFormProps) {
+  const { register, getValues } = useForm();
 
   const [addUser, { isLoading }] = useAddUserMutation();
 
@@ -40,15 +39,12 @@ export default function AddUserForm({ handleClose }: { handleClose: () => void }
         />
       </DialogContent>
       <DialogActions sx={{ paddingX: "24px", paddingBottom: "24px" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddUser}
-          disabled={isLoading}
-        >
+        <Button variant="contained" color="primary" onClick={handleAddUser} disabled={isLoading}>
           Create
         </Button>
       </DialogActions>
     </>
   );
-}
+});
+
+export default AddUserForm;

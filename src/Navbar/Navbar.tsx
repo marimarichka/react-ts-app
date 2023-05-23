@@ -14,7 +14,7 @@ const Navbar = () => {
         height: "calc(100vh - 105px)",
         width: "80px",
         backgroundColor: "#F8F8F8",
-        borderRight: "1px solid #ECBEB4",
+        borderRight: `1px solid ${COLOR_PINK}`,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

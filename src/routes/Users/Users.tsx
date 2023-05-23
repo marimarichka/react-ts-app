@@ -1,20 +1,16 @@
-import { Box, Button, Dialog} from "@mui/material";
-import React from "react";
-import { useGetUsersQuery} from "../../redux/API/API";
+import { Box, Button, Dialog } from "@mui/material";
+import React, { useCallback, useState } from "react";
+import { useGetUsersQuery } from "../../redux/API/API";
 import AddUserForm from "./AddUserForm";
 import UserItem from "./UserItem";
 
 const Users = () => {
   const { data: users } = useGetUsersQuery();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleOpen = () => setOpen(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
     <Box sx={{ padding: "30px" }}>
@@ -28,7 +24,7 @@ const Users = () => {
         }}
       >
         <Box sx={{ fontSize: "20px", fontWeight: "700", display: "flex", alignItems: "center" }}>Users</Box>
-        <Button variant="contained" color="primary" sx={{ height: "40px" }} onClick={handleClickOpen}>
+        <Button variant="contained" color="primary" sx={{ height: "40px" }} onClick={handleOpen}>
           ADD USER
         </Button>
       </Box>

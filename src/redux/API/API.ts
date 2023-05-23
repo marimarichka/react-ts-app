@@ -8,7 +8,7 @@ export const api = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query<ITodoItem[], void>({
       query: () => `/todos`,
-      providesTags: (result) => ["Todos"],
+      providesTags: ["Todos"],
     }),
     addTodo: builder.mutation<ITodoItem, Partial<ITodoItem>>({
       query: (body) => ({
@@ -28,7 +28,7 @@ export const api = createApi({
     }),
     getUsers: builder.query<IUser[], void>({
       query: () => `/users`,
-      providesTags: (result) => ["Users"],
+      providesTags: ["Users"],
     }),
     addUser: builder.mutation<IUser, Partial<IUser>>({
       query: (body) => ({
