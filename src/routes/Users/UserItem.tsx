@@ -7,9 +7,11 @@ import { IUser } from "../ToDoList/types";
 
 interface IOneUser {
   user: IUser;
+  handleOpen: () => void;
+  setEditUser: (user: IUser) => void;
 }
 
-const UserItem: FC<IOneUser> = ({ user }) => {
+const UserItem: FC<IOneUser> = ({ user, handleOpen, setEditUser }) => {
   const [deleteUser, { isLoading }] = useDeleteUserMutation();
   const handleRemove = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -35,7 +37,13 @@ const UserItem: FC<IOneUser> = ({ user }) => {
       <Box sx={{ flex: 1 }}>{user.lastName}</Box>
       <Box sx={{ flex: 1 }}>0</Box>
       <Box sx={{ width: "50px" }}>
-        <IconButton disabled={isLoading}>
+        <IconButton
+          disabled={isLoading}
+          onClick={() => {
+            handleOpen();
+            setEditUser(user);
+          }}
+        >
           <EditIcon sx={{ fontSize: "18px" }} />
         </IconButton>
       </Box>

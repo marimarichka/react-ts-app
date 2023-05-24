@@ -38,6 +38,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+    updateUser: builder.mutation<IUser, Partial<IUser>>({
+      query: (body) => ({
+        url: `users/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Users"],
+    }),
     deleteUser: builder.mutation<IUser, Partial<IUser>>({
       query: (body) => ({
         url: `/users/${body.id}`,
@@ -55,5 +63,6 @@ export const {
   useDeleteTodoMutation,
   useGetUsersQuery,
   useAddUserMutation,
+  useUpdateUserMutation,
   useDeleteUserMutation,
 } = api;

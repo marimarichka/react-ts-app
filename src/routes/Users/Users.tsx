@@ -1,16 +1,21 @@
 import { Box, Button, Dialog } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { useGetUsersQuery } from "../../redux/API/API";
-import AddUserForm from "./AddUserForm";
+import UserForm from "./UserForm";
 import UserItem from "./UserItem";
+import { IUser } from "../ToDoList/types";
 
 const Users = () => {
   const { data: users } = useGetUsersQuery();
   const [open, setOpen] = useState(false);
+  const [editUser, setEditUser] = useState<undefined | IUser>();
 
   const handleOpen = () => setOpen(true);
 
-  const handleClose = useCallback(() => setOpen(false), []);
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setEditUser(undefined);
+  }, []);
 
   return (
     <Box sx={{ padding: "30px" }}>
@@ -52,11 +57,11 @@ const Users = () => {
         }}
       >
         {users?.map((user) => (
-          <UserItem user={user} key={user.id} />
+          <UserItem user={user} key={user.id} handleOpen={handleOpen} setEditUser={setEditUser} />
         ))}
       </Box>
       <Dialog open={open} onClose={handleClose}>
-        <AddUserForm handleClose={handleClose} />
+        <UserForm handleClose={handleClose} user={editUser} />
       </Dialog>
     </Box>
   );
