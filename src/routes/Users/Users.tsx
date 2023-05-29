@@ -43,8 +43,8 @@ const Users = () => {
           paddingX: "20px",
         }}
       >
-        {["Name", "Last name", "Todos count", "Edit", "Delete"].map((name, i) => (
-          <Box sx={{ marginY: "20px", ...(i < 3 ? { flex: 1 } : { width: "50px" }) }} key={name}>
+        {["Name", "Last name", "Todos count", "Role", "Edit", "Delete"].map((name, i) => (
+          <Box sx={{ marginY: "20px", ...(i < 4 ? { flex: 1 } : { width: "50px" }) }} key={name}>
             {name}
           </Box>
         ))}
