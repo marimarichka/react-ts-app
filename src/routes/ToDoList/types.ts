@@ -10,13 +10,7 @@ export type IUser = {
   firstName: string;
   lastName: string;
   id: string;
-  role: UserRole
+  role: UserRole;
+  probation: boolean
 };
 
-
-const newUser: IUser = {
-  firstName: 'hsjsj',
-  lastName: 'djdkf',
-  id: '1',
-  role: UserRole.Admin
-}

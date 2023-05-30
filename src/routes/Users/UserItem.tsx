@@ -37,6 +37,7 @@ const UserItem: FC<IOneUser> = ({ user, handleOpen, setEditUser }) => {
       <Box sx={{ flex: 1 }}>{user.lastName}</Box>
       <Box sx={{ flex: 1 }}>0</Box>
       <Box sx={{ flex: 1 }}>{user.role}</Box>
+      <Box sx={{ flex: 1 }}>{user.probation === true ? "Yes" : "No"}</Box>
       <Box sx={{ width: "50px" }}>
         <IconButton
           disabled={isLoading}

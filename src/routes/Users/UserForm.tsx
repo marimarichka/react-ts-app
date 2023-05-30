@@ -1,5 +1,16 @@
 import React, { memo, useState } from "react";
-import { Button, TextField, DialogContent, DialogActions, DialogTitle, Select, MenuItem } from "@mui/material";
+import {
+  Button,
+  TextField,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  Select,
+  MenuItem,
+  Box,
+  Typography,
+  Checkbox,
+} from "@mui/material";
 import { useAddUserMutation, useUpdateUserMutation } from "../../redux/API/API";
 import { IUser, UserRole } from "../ToDoList/types";
 
@@ -16,6 +27,7 @@ const UserForm = memo(function UserForm({ handleClose, user }: UserFormProps) {
     firstName: user?.firstName,
     lastName: user?.lastName,
     role: user?.role || UserRole.Admin,
+    probation: !!user?.probation,
   });
 
   const isEditForm = !!user;
@@ -59,12 +71,19 @@ const UserForm = memo(function UserForm({ handleClose, user }: UserFormProps) {
         <Select
           onChange={({ target: { value } }) => setValues({ ...values, role: value as UserRole })}
           value={values.role}
-          sx={{ width: "350px" }}
+          sx={{ width: "350px", marginBottom: "20px" }}
         >
           <MenuItem value={UserRole.Admin}>Admin</MenuItem>
           <MenuItem value={UserRole.Crew}>Crew</MenuItem>
           <MenuItem value={UserRole.Manager}>Manager</MenuItem>
         </Select>
+        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center"  }}>
+          <Checkbox
+            checked={values.probation}
+            onChange={({ target: { checked } }) => setValues({ ...values, probation: checked })}
+          />
+          <Typography variant="body2">Employee on a probationary period</Typography>
+        </Box>
       </DialogContent>
       <DialogActions sx={{ paddingX: "24px", paddingBottom: "24px" }}>
         <Button
